@@ -1,7 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const validateRules = require("./routes/route");
-const PORT = process.env.PORT || 5500
+const {fileErrorHandler} = require('./util/errorHandler')
+const PORT = process.env.PORT || 5500;
 
 //initiate server
 const app = express();
@@ -20,14 +21,12 @@ app.get("/", (req, res) => {
       github: process.env.Github,
       email: process.env.Email,
       mobile: process.env.Mobile,
-      twitter: process.env.Twitter
-  }
-})
+      twitter: process.env.Twitter,
+    },
+  });
 });
 
-app.use("/validate-rule", validateRules);
+app.use("/validate-rule", validateRules);   
+app.use(fileErrorHandler)
 
-app.listen(
-  PORT,
-  console.log(`server running on port: ${PORT}`)
-);
+app.listen(PORT, console.log(`server running on port: ${PORT}`));

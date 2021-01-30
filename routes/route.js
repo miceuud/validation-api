@@ -5,7 +5,8 @@ const multer = require('multer')
 const route = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-route.post("/", upload.single('file'), (req, res) => {
+
+route.post("/", upload.single('data'),  (req, res) => {
 
   const file = JSON.parse(
     fs.readFileSync(path.join(process.cwd(), req.file.path), "utf-8")
